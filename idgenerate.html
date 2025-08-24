@@ -103,22 +103,20 @@
   border-radius: 24px;
   overflow: hidden;
   background: #fff;
-  transform: scale(.55);        /* desktop pe thoda zoom out */
-  transform-origin: top center; /* center align */
-  justify-items: center;
+  transform: scale(.5);          /* default: desktop ke liye */
+  transform-origin: top left;
 }
 
-/* Tablet & Mobile */
-/* Tablet & Mobile */
-@media (max-width: 1024px) {
+/* Mobile phones */
+@media (max-width: 900px) {
   .id-card {
-    transform: scale(.75);   /* tablet pe thoda bada */
-    transform-origin: top center;
+    transform: none !important;  /* mobile me original size dikhayega */
     width: 100%;
-    max-width: 720px;
+    max-width: 560px;
     height: auto;
   }
 }
+
 
 /* Mobile phones */
 @media (max-width: 768px) {
@@ -631,3 +629,4 @@ async function exportPDF(){
 </script>
 </body>
 </html>
+
