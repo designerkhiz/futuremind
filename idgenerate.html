@@ -95,35 +95,25 @@
 }
 
 /* Default Laptop/Desktop */
+/* Default Laptop/Desktop */
 .id-card {
   width: 1011px;
   height: 638px;
   border-radius: 24px;
   overflow: hidden;
   background: #fff;
-  transform: scale(.5);
-  transform-origin: center center; /* center se scale hoga */
+  transform: scale(.5);              /* sirf bada screen ke liye */
+  transform-origin: center center;   /* beech se scale hoga */
+  margin: auto;
 }
 
-
-/* Mobile phones */
-@media (max-width: 768px) {
+/* Tablet/Mobile */
+@media (max-width: 980px) {
   .id-card {
-    width: 100%;             /* screen ke full width */
-    max-width: 360px;        /* card max mobile size */
+    width: 100%;       /* screen fit */
+    max-width: 360px;  /* mobile max size */
     height: auto;
-    transform: none;         /* scale hata do */
-  }
-  .photo {
-    width: 140px;
-    height: 190px;
-  }
-  .details {
-    grid-template-columns: 1fr;
-    gap: 6px 0;
-  }
-  .field .value {
-    font-size: 13px;
+    transform: none;   /* ❌ scale hata do */
   }
 }
 
