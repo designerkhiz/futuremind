@@ -103,30 +103,34 @@
   border-radius: 24px;
   overflow: hidden;
   background: #fff;
-  transform: scale(.5);          /* default: desktop ke liye */
-  transform-origin: top left;
+  transform: scale(.55);        /* desktop pe thoda zoom out */
+  transform-origin: top center; /* center align */
+  justify-items: center;
 }
 
-/* Mobile phones */
-@media (max-width: 900px) {
+/* Tablet & Mobile */
+/* Tablet & Mobile */
+@media (max-width: 1024px) {
   .id-card {
-    transform: none !important;  /* mobile me original size dikhayega */
+    transform: scale(.75);   /* tablet pe thoda bada */
+    transform-origin: top center;
     width: 100%;
-    max-width: 560px;
+    max-width: 720px;
     height: auto;
   }
 }
 
-
 /* Mobile phones */
 @media (max-width: 768px) {
   .id-card {
-    transform: none;         /* mobile pe full size */
+    transform: none;   /* ✅ full size */
     width: 95%;
     max-width: 560px;
     height: auto;
     margin: 20px auto;
   }
+}
+
 
   .photo {
     width: 160px;
@@ -440,40 +444,7 @@ bindImageInput(el('qrInput'),   qrImg);
   });
 
   // Export helpers
-  async function exportPNG(){
-    const card = el('card');
-    const prev = card.style.transform; const prevOrigin = card.style.transformOrigin;
-    card.style.transform = 'none'; card.style.transformOrigin = 'top left';
-    const canvas = await html2canvas(card, {backgroundColor: null, scale: 2});
-    card.style.transform = prev; card.style.transformOrigin = prevOrigin;
-
-    const data = canvas.toDataURL('image/png');
-    const a = document.createElement('a');
-    a.href = data; a.download = (idNumber.value || 'id-card') + '.png';
-    a.click();
-  }
-
-  async function exportPDF(){
-    const card = el('card');
-    const prev = card.style.transform; const prevOrigin = card.style.transformOrigin;
-    card.style.transform = 'none'; card.style.transformOrigin = 'top left';
-    const canvas = await html2canvas(card, {backgroundColor: '#ffffff', scale: 2});
-    card.style.transform = prev; card.style.transformOrigin = prevOrigin;
-
-    const imgData = canvas.toDataURL('image/png');
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: [86, 54] });
-    const pageW = 86, pageH = 54;
-    const margin = 2;
-    const drawW = pageW - margin*2;
-    const drawH = drawW * (638/1011);
-    const y = (pageH - drawH)/2;
-    doc.addImage(imgData, 'PNG', margin, y, drawW, drawH);
-    doc.save((idNumber.value || 'id-card') + '.pdf');
-  }
-
-  el('downloadPNGBtn').addEventListener('click', exportPNG);
-  el('downloadPDFBtn').addEventListener('click', exportPDF);
+ 
 
   // Initialize
  
@@ -585,7 +556,7 @@ window.addEventListener("DOMContentLoaded", ()=>{
   applyToCard();
 });
 async function exportPNG(){
-  const card = document.getElementById('id-card');
+  const card = document.getElementById('id-card');   // ✅ correct id
   const prev = card.style.transform; 
   const prevOrigin = card.style.transformOrigin;
 
@@ -604,7 +575,7 @@ async function exportPNG(){
 }
 
 async function exportPDF(){
-  const card = document.getElementById('id-card');
+  const card = document.getElementById('id-card');   // ✅ correct id
   const prev = card.style.transform; 
   const prevOrigin = card.style.transformOrigin;
 
@@ -619,7 +590,6 @@ async function exportPDF(){
   const imgData = canvas.toDataURL('image/png');
   const { jsPDF } = window.jspdf;
 
-  // Card ke exact pixel size ke hisaab se
   const pdf = new jsPDF("landscape", "pt", [1011, 638]);
   pdf.addImage(imgData, 'PNG', 0, 0, 1011, 638);
   pdf.save((idNumber.value || 'id-card') + '.pdf');
@@ -629,4 +599,3 @@ async function exportPDF(){
 </script>
 </body>
 </html>
-
