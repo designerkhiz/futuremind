@@ -91,98 +91,42 @@
 }
 
 
-/* Base styles already defined above... */
+/* Default (desktop/laptop) */
+.id-card {
+  width: 90%;           /* screen ka 90% */
+  max-width: 1011px;    /* zyada se zyada itna hi */
+  aspect-ratio: 1011/638; /* height auto maintain */
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #ffffff;
+  margin: 20px auto;    /* center + thoda space */
+}
 
-/* MOBILE & TABLET RESPONSIVENESS */
-@media (max-width: 1200px) {
-  .app {
-    grid-template-columns: 1fr; /* stack panels vertically */
-    padding: 16px;
-    gap: 16px;
-  }
-
-  .preview-wrap {
-    grid-template-columns: 1fr;
-    padding: 12px;
-  }
-
+/* Tablet */
+@media (max-width: 980px) {
   .id-card {
-    transform: scale(0.45); /* scale down for smaller screens */
-    transform-origin: top left;
+    width: 95%;         
+    max-width: 800px;   /* tablet par thoda chhota */
   }
 }
 
-@media (max-width: 768px) {
+/* Mobile */
+@media (max-width: 600px) {
   .id-card {
-    width: 900px;
-    height: 570px;
-    transform: scale(0.35);
-  }
-
-  .details {
-    grid-template-columns: 1fr; /* stack details vertically */
-    gap: 10px 0;
-  }
-
-  .photo {
-    width: 240px;
-    height: 320px;
-    left: 20px;
-    top: 120px;
-  }
-
-  .logo {
-    left: 20px;
-    right: 20px;
-    font-size: 22px;
-  }
-
-  .footer {
-    padding: 0 16px;
-  }
-
-  .btns {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 480px) {
-  body {
-    font-size: 14px;
-  }
-
-  .id-card {
-    transform: scale(0.28);
-    width: 700px;
-    height: 440px;
-  }
-
-  .photo {
-    width: 180px;
-    height: 240px;
-    top: 100px;
-    left: 10px;
-  }
-
-  .details {
-    gap: 8px 0;
-  }
-
-  .field .value {
-    font-size: 16px;
-  }
-
-  .orgName {
-    font-size: 18px !important;
-  }
-
-  .title {
-    font-size: 12px !important;
-  }
-
-  .btns button {
     width: 100%;
-    font-size: 14px;
+    max-width: 360px;   /* mobile fit */
+  }
+  .photo {
+    width: 140px;
+    height: 190px;
+  }
+  .details {
+    grid-template-columns: 1fr;
+    gap: 6px 0;
+  }
+  .field .value {
+    font-size: 13px;
   }
 }
 
