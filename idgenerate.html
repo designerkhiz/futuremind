@@ -109,6 +109,7 @@
 }
 
 /* Tablet & Mobile */
+/* Tablet & Mobile */
 @media (max-width: 1024px) {
   .id-card {
     transform: scale(.75);   /* tablet pe thoda bada */
@@ -120,17 +121,14 @@
 }
 
 /* Mobile phones */
-/* Mobile phones */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .id-card {
-    width: 100%;
+    transform: none;         /* mobile pe full size */
+    width: 95%;
     max-width: 560px;
-    height: auto;          /* ❌ yeh hata do */
-    aspect-ratio: 1011/638; /* ✅ card ka proportion lock kar */
-    transform: none;
+    height: auto;
+    margin: 20px auto;
   }
-}
-
 
   .photo {
     width: 160px;
@@ -272,7 +270,10 @@
     <h2>Live Preview</h2>
     <div class="preview-wrap">
       <div class="card-shadow">
-        <div id="card" class="id-card">
+        <div id="id-card" class="id-card">
+   <!-- andar photo, naam, text etc. -->
+
+
           <div class="bg"></div>
           <div class="brand-bar"></div>
 
@@ -585,28 +586,48 @@ window.addEventListener("DOMContentLoaded", ()=>{
   });
   applyToCard();
 });
+async function exportPNG(){
+  const card = document.getElementById('id-card');
+  const prev = card.style.transform; 
+  const prevOrigin = card.style.transformOrigin;
 
-document.getElementById("download-png").addEventListener("click", function () {
-  const card = document.getElementById("id-card");
-  html2canvas(card, { useCORS: true, allowTaint: true, scale: 2 }).then(canvas => {
-    const link = document.createElement("a");
-    link.download = "id-card.png";
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-  }).catch(err => console.error("PNG Export Error:", err));
-});
+  card.style.transform = 'none'; 
+  card.style.transformOrigin = 'top left';
 
-document.getElementById("download-pdf").addEventListener("click", function () {
-  const card = document.getElementById("id-card");
-  html2canvas(card, { useCORS: true, allowTaint: true, scale: 2 }).then(canvas => {
-    const imgData = canvas.toDataURL("image/png");
-    const pdf = new jspdf.jsPDF("landscape", "pt", [1011, 638]); // exact card size
-    pdf.addImage(imgData, "PNG", 0, 0, 1011, 638);
-    pdf.save("id-card.pdf");
-  }).catch(err => console.error("PDF Export Error:", err));
-});
+  const canvas = await html2canvas(card, {backgroundColor: null, scale: 2});
+
+  card.style.transform = prev; 
+  card.style.transformOrigin = prevOrigin;
+
+  const link = document.createElement('a');
+  link.download = (idNumber.value || 'id-card') + '.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+async function exportPDF(){
+  const card = document.getElementById('id-card');
+  const prev = card.style.transform; 
+  const prevOrigin = card.style.transformOrigin;
+
+  card.style.transform = 'none'; 
+  card.style.transformOrigin = 'top left';
+
+  const canvas = await html2canvas(card, {backgroundColor: '#ffffff', scale: 2});
+
+  card.style.transform = prev; 
+  card.style.transformOrigin = prevOrigin;
+
+  const imgData = canvas.toDataURL('image/png');
+  const { jsPDF } = window.jspdf;
+
+  // Card ke exact pixel size ke hisaab se
+  const pdf = new jsPDF("landscape", "pt", [1011, 638]);
+  pdf.addImage(imgData, 'PNG', 0, 0, 1011, 638);
+  pdf.save((idNumber.value || 'id-card') + '.pdf');
+}
+
 
 </script>
 </body>
 </html>
-
