@@ -123,14 +123,12 @@
 /* Mobile phones */
 @media (max-width: 768px) {
   .id-card {
-    transform: none;   /* ✅ full size */
+    transform: none;         /* mobile pe full size */
     width: 95%;
     max-width: 560px;
     height: auto;
     margin: 20px auto;
   }
-}
-
 
   .photo {
     width: 160px;
@@ -444,7 +442,40 @@ bindImageInput(el('qrInput'),   qrImg);
   });
 
   // Export helpers
- 
+  async function exportPNG(){
+    const card = el('card');
+    const prev = card.style.transform; const prevOrigin = card.style.transformOrigin;
+    card.style.transform = 'none'; card.style.transformOrigin = 'top left';
+    const canvas = await html2canvas(card, {backgroundColor: null, scale: 2});
+    card.style.transform = prev; card.style.transformOrigin = prevOrigin;
+
+    const data = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = data; a.download = (idNumber.value || 'id-card') + '.png';
+    a.click();
+  }
+
+  async function exportPDF(){
+    const card = el('card');
+    const prev = card.style.transform; const prevOrigin = card.style.transformOrigin;
+    card.style.transform = 'none'; card.style.transformOrigin = 'top left';
+    const canvas = await html2canvas(card, {backgroundColor: '#ffffff', scale: 2});
+    card.style.transform = prev; card.style.transformOrigin = prevOrigin;
+
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: [86, 54] });
+    const pageW = 86, pageH = 54;
+    const margin = 2;
+    const drawW = pageW - margin*2;
+    const drawH = drawW * (638/1011);
+    const y = (pageH - drawH)/2;
+    doc.addImage(imgData, 'PNG', margin, y, drawW, drawH);
+    doc.save((idNumber.value || 'id-card') + '.pdf');
+  }
+
+  el('downloadPNGBtn').addEventListener('click', exportPNG);
+  el('downloadPDFBtn').addEventListener('click', exportPDF);
 
   // Initialize
  
@@ -560,11 +591,13 @@ async function exportPNG(){
   const prev = card.style.transform; 
   const prevOrigin = card.style.transformOrigin;
 
+  // temporarily remove scale
   card.style.transform = 'none'; 
   card.style.transformOrigin = 'top left';
 
   const canvas = await html2canvas(card, {backgroundColor: null, scale: 2});
 
+  // restore scale
   card.style.transform = prev; 
   card.style.transformOrigin = prevOrigin;
 
@@ -590,6 +623,7 @@ async function exportPDF(){
   const imgData = canvas.toDataURL('image/png');
   const { jsPDF } = window.jspdf;
 
+  // Card ke exact pixel size ke hisaab se
   const pdf = new jsPDF("landscape", "pt", [1011, 638]);
   pdf.addImage(imgData, 'PNG', 0, 0, 1011, 638);
   pdf.save((idNumber.value || 'id-card') + '.pdf');
