@@ -120,14 +120,17 @@
 }
 
 /* Mobile phones */
-@media (max-width: 768px) {
+/* Mobile phones */
+@media (max-width: 900px) {
   .id-card {
-    transform: none;         /* mobile pe full size */
-    width: 95%;
+    width: 100%;
     max-width: 560px;
-    height: auto;
-    margin: 20px auto;
+    height: auto;          /* ❌ yeh hata do */
+    aspect-ratio: 1011/638; /* ✅ card ka proportion lock kar */
+    transform: none;
   }
+}
+
 
   .photo {
     width: 160px;
@@ -583,7 +586,27 @@ window.addEventListener("DOMContentLoaded", ()=>{
   applyToCard();
 });
 
+document.getElementById("download-png").addEventListener("click", function () {
+  const card = document.getElementById("id-card");
+  html2canvas(card, { useCORS: true, allowTaint: true, scale: 2 }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "id-card.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  }).catch(err => console.error("PNG Export Error:", err));
+});
+
+document.getElementById("download-pdf").addEventListener("click", function () {
+  const card = document.getElementById("id-card");
+  html2canvas(card, { useCORS: true, allowTaint: true, scale: 2 }).then(canvas => {
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jspdf.jsPDF("landscape", "pt", [1011, 638]); // exact card size
+    pdf.addImage(imgData, "PNG", 0, 0, 1011, 638);
+    pdf.save("id-card.pdf");
+  }).catch(err => console.error("PDF Export Error:", err));
+});
 
 </script>
 </body>
 </html>
+
