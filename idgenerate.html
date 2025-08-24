@@ -98,13 +98,15 @@
 .id-card {
   width: 1011px;
   height: 638px;
+  margin: auto;
+  position: relative;
   border-radius: 24px;
   overflow: hidden;
   background: #fff;
-  transform: scale(.5);
-  transform-origin: center center; /* center se scale hoga */
+  transform: scale(.5);      /* sirf bada screen pe */
+  transform-origin: top left;
+  justify-items: center;
 }
-
 
 /* Mobile phones */
 @media (max-width: 900px) {
