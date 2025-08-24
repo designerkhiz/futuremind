@@ -10,7 +10,12 @@
     --primary:#2563eb; --accent:#0ea5e9; --text:#0f172a; --muted:#64748b; --bg:#f8fafc; --card:#ffffff;
   }
   *{box-sizing:border-box} html,body{height:100%;}
-  body{margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; font-family: 'Montserrat', sans-serif;background: var(--bg); color: var(--text);}
+  body{  display: flex;
+  justify-content: center;   /* horizontal center */
+  align-items: center;       /* vertical center */
+  min-height: 100vh;         /* full screen height */
+  background: #f0f0f0;       /* optional background */
+  margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; font-family: 'Montserrat', sans-serif;background: var(--bg); color: var(--text);}
 
   .app{display:grid; grid-template-columns: 380px 1fr; gap:24px; padding:24px; max-width:1200px; margin:auto;}
   .panel{background:var(--card); border-radius:16px; box-shadow:0 6px 24px rgba(2,6,23,.08);}
@@ -78,36 +83,36 @@
   color:#fff; font-weight:800; letter-spacing:.4px;
   overflow:hidden;
 }
-/* Default (Laptop / Desktop) */
+
+
+#orgName {
+  color: #fff;
+  font-weight: 800;
+  font-size: 26px;
+  line-height: 2;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 1px;
+}
+
+/* Default Laptop/Desktop */
 .id-card {
-  width: 1011px;   /* actual card size */
+  width: 1011px;
   height: 638px;
-  margin: auto;
-  position: relative;
   border-radius: 24px;
   overflow: hidden;
   background: #fff;
-  transform: scale(.5);          /* laptop pe chhota preview */
-  transform-origin: top left;
+  transform: scale(.5);
+  transform-origin: center center; /* center se scale hoga */
 }
 
-/* Tablet */
-@media (max-width: 980px) {
-  .id-card {
-    width: 95%;
-    height: auto;
-    transform: none;             /* scale hata do */
-    max-width: 800px;
-  }
-}
 
-/* Mobile */
-@media (max-width: 600px) {
+/* Mobile phones */
+@media (max-width: 768px) {
   .id-card {
-    width: 100%;
+    width: 100%;             /* screen ke full width */
+    max-width: 360px;        /* card max mobile size */
     height: auto;
-    transform: none;             /* mobile pe natural size */
-    max-width: 360px;
+    transform: none;         /* scale hata do */
   }
   .photo {
     width: 140px;
@@ -121,17 +126,6 @@
     font-size: 13px;
   }
 }
-
-
-#orgName {
-  color: #fff;
-  font-weight: 800;
-  font-size: 26px;
-  line-height: 2;
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: 1px;
-}
-
 
 
 </style>
