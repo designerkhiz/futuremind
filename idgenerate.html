@@ -94,7 +94,7 @@
   letter-spacing: 1px;
 }
 
-/* Default Laptop/Desktop */
+/* Default = Laptop/Desktop */
 .id-card {
   width: 1011px;
   height: 638px;
@@ -103,50 +103,35 @@
   border-radius: 24px;
   overflow: hidden;
   background: #fff;
-  transform: scale(.55);        /* desktop pe thoda zoom out */
-  transform-origin: top center; /* center align */
-  justify-items: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* Tablet & Mobile */
-/* Tablet & Mobile */
-@media (max-width: 1024px) {
-  .id-card {
-    transform: scale(.75);   /* tablet pe thoda bada */
-    transform-origin: top center;
-    width: 100%;
-    max-width: 720px;
-    height: auto;
-  }
-}
-
-/* Mobile phones */
+/* 📱 Mobile Responsive */
 @media (max-width: 768px) {
   .id-card {
-    transform: none;         /* mobile pe full size */
-    width: 95%;
-    max-width: 560px;
-    height: auto;
-    margin: 20px auto;
+    width: 100%;
+    height: auto;            /* height auto so content fit kare */
+    aspect-ratio: 1011 / 638;/* proportion maintain kare */
+    transform: scale(0.95);  /* thoda shrink for small screens */
+    transform-origin: top center;
   }
 
   .photo {
-    width: 160px;
-    height: 210px;
+    width: 120px;
+    height: 160px;
   }
 
   .details {
-    grid-template-columns: 1fr;
-    gap: 10px 0;
+    grid-template-columns: 1fr; /* ek column me aayega */
+    gap: 6px;
   }
 
-  .field .label {
+  .label {
+    font-size: 13px;
+  }
+
+  .value {
     font-size: 14px;
-  }
-
-  .field .value {
-    font-size: 15px;
-    font-weight: 600;
   }
 }
 
@@ -587,46 +572,37 @@ window.addEventListener("DOMContentLoaded", ()=>{
   applyToCard();
 });
 async function exportPNG(){
-  const card = document.getElementById('id-card');   // ✅ correct id
-  const prev = card.style.transform; 
-  const prevOrigin = card.style.transformOrigin;
-
-  // temporarily remove scale
-  card.style.transform = 'none'; 
-  card.style.transformOrigin = 'top left';
-
+  const card = document.getElementById('id-card');
   const canvas = await html2canvas(card, {backgroundColor: null, scale: 2});
+  const dataURL = canvas.toDataURL('image/png');
 
-  // restore scale
-  card.style.transform = prev; 
-  card.style.transformOrigin = prevOrigin;
-
-  const link = document.createElement('a');
-  link.download = (idNumber.value || 'id-card') + '.png';
-  link.href = canvas.toDataURL('image/png');
-  link.click();
+  if (/Mobi|Android/i.test(navigator.userAgent)) {
+    // 📱 Mobile Fallback
+    window.open(dataURL, '_blank');
+  } else {
+    // 💻 Laptop/Desktop normal download
+    const link = document.createElement('a');
+    link.download = (idNumber.value || 'id-card') + '.png';
+    link.href = dataURL;
+    link.click();
+  }
 }
 
 async function exportPDF(){
-  const card = document.getElementById('id-card');   // ✅ correct id
-  const prev = card.style.transform; 
-  const prevOrigin = card.style.transformOrigin;
-
-  card.style.transform = 'none'; 
-  card.style.transformOrigin = 'top left';
-
-  const canvas = await html2canvas(card, {backgroundColor: '#ffffff', scale: 2});
-
-  card.style.transform = prev; 
-  card.style.transformOrigin = prevOrigin;
-
+  const card = document.getElementById('id-card');
+  const canvas = await html2canvas(card, {backgroundColor: '#fff', scale: 2});
   const imgData = canvas.toDataURL('image/png');
   const { jsPDF } = window.jspdf;
-
-  // Card ke exact pixel size ke hisaab se
   const pdf = new jsPDF("landscape", "pt", [1011, 638]);
   pdf.addImage(imgData, 'PNG', 0, 0, 1011, 638);
-  pdf.save((idNumber.value || 'id-card') + '.pdf');
+
+  if (/Mobi|Android/i.test(navigator.userAgent)) {
+    // 📱 Mobile Fallback
+    window.open(pdf.output('bloburl'), '_blank');
+  } else {
+    // 💻 Laptop/Desktop normal save
+    pdf.save((idNumber.value || 'id-card') + '.pdf');
+  }
 }
 
 
