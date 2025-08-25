@@ -107,38 +107,25 @@
   transform-origin: top center;
 }
 
-/* Tablet */
-@media (max-width: 1024px) {
-  .id-card {
-    transform: scale(.75);
-    transform-origin: top center;
-    width: 100%;
-    max-width: 720px;
-    height: auto;
-  }
-}
-
-/* Mobile preview fix */
+/* 📱 Mobile fix */
 @media (max-width: 768px) {
-  #preview-frame {
-    width: 100% !important;
-    height: 500px !important;   /* adjust as needed */
-    border: none !important;
-    transform: none !important;
-  }
-
   .preview-wrap {
-    overflow-x: auto !important;   /* scroll allow */
-    min-height: 500px;
+    overflow-x: auto;      /* agar card bada ho to scroll ho sake */
+    justify-content: center;
   }
 
   .id-card {
-    transform: none !important;
-    width: 100% !important;
-    height: auto !important;
+    transform: none !important;   /* scale hatado */
+    width: 100% !important;       /* screen ke width ke hisaab se fit */
+    max-width: 100% !important;
+    height: auto !important;      /* height auto adjust hogi */
+    margin: 0 auto !important;
+  }
+
+  .card-shadow {
+    overflow: visible !important;
   }
 }
-
 
 
 </style>
