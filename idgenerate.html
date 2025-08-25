@@ -103,35 +103,42 @@
   border-radius: 24px;
   overflow: hidden;
   background: #fff;
-  transform: scale(.55);        /* desktop pe zoom out */
+  transform: scale(.55x);        /* desktop pe zoom out */
   transform-origin: top center;
 }
 
-/* 📱 Mobile fix */
-@media (max-width: 768px) {
-  .preview-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: auto;              /* scroll allow karo */
-    height: 100vh;               /* pure screen height */
-  }
-
-  #id-card {
-    transform: none !important;  /* scaling remove */
-    transform-origin: center !important;
-    width: 95% !important;       /* phone ki screen ke andar fit */
-    max-width: 400px !important; /* max 400px tak hi rahe */
-    height: auto !important;
-    margin: auto !important;
-    background: #fff !important; /* ensure white card dikhe */
-    z-index: 999 !important;     /* ensure dusri cheez overlay na kare */
-  }
-
-  .card-shadow {
-    overflow: visible !important;
+/* Tablet */
+@media (max-width: 1024px) {
+  .id-card {
+    transform: scale(.75);
+    transform-origin: top center;
+    width: 100%;
+    max-width: 720px;
+    height: auto;
   }
 }
+
+/* Mobile preview fix */
+@media (max-width: 768px) {
+  #preview-frame {
+    width: 100% !important;
+    height: 500px !important;   /* adjust as needed */
+    border: none !important;
+    transform: none !important;
+  }
+
+  .preview-wrap {
+    overflow-x: auto !important;   /* scroll allow */
+    min-height: 500px;
+  }
+
+  .id-card {
+    transform: none !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+
 
 
 </style>
