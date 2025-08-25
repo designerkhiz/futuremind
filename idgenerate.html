@@ -110,16 +110,22 @@
 /* 📱 Mobile fix */
 @media (max-width: 768px) {
   .preview-wrap {
-    overflow-x: auto;      /* agar card bada ho to scroll ho sake */
+    display: flex;
     justify-content: center;
+    align-items: center;
+    overflow: auto;              /* scroll allow karo */
+    height: 100vh;               /* pure screen height */
   }
 
-  .id-card {
-    transform: none !important;   /* scale hatado */
-    width: 100% !important;       /* screen ke width ke hisaab se fit */
-    max-width: 100% !important;
-    height: auto !important;      /* height auto adjust hogi */
-    margin: 0 auto !important;
+  #id-card {
+    transform: none !important;  /* scaling remove */
+    transform-origin: center !important;
+    width: 95% !important;       /* phone ki screen ke andar fit */
+    max-width: 400px !important; /* max 400px tak hi rahe */
+    height: auto !important;
+    margin: auto !important;
+    background: #fff !important; /* ensure white card dikhe */
+    z-index: 999 !important;     /* ensure dusri cheez overlay na kare */
   }
 
   .card-shadow {
