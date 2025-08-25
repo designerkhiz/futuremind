@@ -118,28 +118,25 @@
   }
 }
 
-/* ✅ Mobile fix */
+/* Mobile preview fix */
 @media (max-width: 768px) {
+  #preview-frame {
+    width: 100% !important;
+    height: 500px !important;   /* adjust as needed */
+    border: none !important;
+    transform: none !important;
+  }
+
+  .preview-wrap {
+    overflow-x: auto !important;   /* scroll allow */
+    min-height: 500px;
+  }
+
   .id-card {
-    transform: none !important;    /* scale hata do */
-    width: 100% !important;        /* screen ke hisaab se fit */
-    max-width: 100% !important;
+    transform: none !important;
+    width: 100% !important;
     height: auto !important;
-    margin: 0 auto !important;
   }
-
-  .photo {
-    width: 160px;
-    height: 210px;
-  }
-
-  .details {
-    grid-template-columns: 1fr;
-    gap: 10px 0;
-  }
-
-  .field .label { font-size: 13px; }
-  .field .value { font-size: 15px; font-weight: 600; }
 }
 
 
