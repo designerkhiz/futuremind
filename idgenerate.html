@@ -116,14 +116,15 @@
 }
 
 /* 📱 Mobile phones (<768px) */
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   .id-card {
-    transform: none !important;   /* ✅ force remove scaling */
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto;
+    transform: none !important;   /* ✅ scale hatao */
+    width: 100% !important;       /* ✅ phone ke screen ke hisaab se fit karo */
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 auto !important;
   }
+}
 
   .photo {
     width: 140px;
