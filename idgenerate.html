@@ -108,28 +108,31 @@
 }
 
 /* Tablet */
-/* ✅ Mobile preview fix */
+/* ✅ Mobile Preview Auto Fit */
 @media (max-width: 768px) {
   .preview-wrap {
-    overflow-x: auto;      /* allow horizontal scroll */
-    overflow-y: hidden;
-    min-height: 400px;     /* ensure preview box is visible */
-    padding-bottom: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 400px;
+    padding: 16px 0;
+    overflow: hidden; /* prevent unwanted scroll */
   }
 
   .id-card {
-    transform: none !important;  /* remove scaling */
-    width: 1011px !important;    /* keep full card size */
-    height: 638px !important;
-    margin: 0 auto;
+    transform: scale(0.45);   /* shrink card to fit */
+    transform-origin: top center;
+    width: 1011px;  /* actual size maintained */
+    height: 638px;
   }
 
   .card-shadow {
-    min-width: 1011px;          /* keep space for scroll */
+    width: auto;
+    height: auto;
   }
 
   .scale-note {
-    display: none;              /* hide "50% scale" note on mobile */
+    display: none;  /* hide note on mobile */
   }
 }
 
