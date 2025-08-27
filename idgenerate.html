@@ -107,64 +107,37 @@
   transform-origin: top center;
 }
 
-/* visibility helpers */
-.mobile-only { display: none; }
-.pc-only { display: block; }
+/* Tablet */
+@media (max-width: 1024px) {
+  .id-card {
+    transform: scale(.75);
+    transform-origin: top center;
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+  }
+}
 
+/* Mobile preview fix */
 @media (max-width: 768px) {
-  .pc-only { display: none !important; }   /* mobile par PC wala preview pura hide */
-  .mobile-only { display: block; }         /* mobile-only cheezen sirf mobile par dikhen */
-}
+  #preview-frame {
+    width: auto !important;
+    height: auto !important;   /* adjust as needed */
+    border: none !important;
+    transform: none !important;
+  }
 
-/* modal styles */
-#cardModal{
-  position: fixed;
-  inset: 0;
-  background: rgba(2,6,23,.6);
-  display: none;                 /* hidden by default */
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-#cardModal.open{ display: flex; }
+  .preview-wrap {
+    overflow-x: auto !important;   /* scroll allow */
+    min-height: 500px;
+  }
 
-.modal-box{
-  background: var(--card);
-  border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(2,6,23,.25);
-  padding: 16px;
-  max-width: 900px;
-  width: 94%;
-  position: relative;
+  .id-card {
+    transform: none !important;
+    width: 100% !important;
+    height: auto !important;
+  }
 }
-.modal-close{
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  border: 0;
-  background: #e2e8f0;
-  color: #0f172a;
-  border-radius: 10px;
-  padding: 6px 10px;
-  cursor: pointer;
-  font-weight: 700;
-}
-.modal-actions{
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-/* modal ke andar card full width ho aur zoom na ho */
-#modalCard .id-card{
-  transform: none !important;
-  width: 100% !important;
-  height: auto !important;
-  border-radius: 12px;
-}
-
-
 
 
 
@@ -172,8 +145,7 @@
 </head>
 <body>
 <div class="app">
-  <section class="panel pc-only">
-
+  <section class="panel">
     <h2>Inputs</h2>
     <div class="content">
       <div class="mb">
@@ -282,16 +254,9 @@
       <p class="hint" style="margin-top:10px">Note: This creates a visual/mock ID card for design/demo/event use. It does not verify or issue any official ID.</p>
     </div>
   </section>
-  <section class="panel mobile-only">
-  <h2>Preview</h2>
-  <div class="content" style="text-align:center">
-    <button type="button" class="outline" onclick="openModal()">Open Mobile Preview</button>
-  </div>
-</section>
 
   <section class="panel">
     <h2>Live Preview</h2>
-    
     <div class="preview-wrap">
       <div class="card-shadow">
         <div id="id-card" class="id-card">
@@ -368,36 +333,10 @@
   </section>
 </div>
 
-<!-- Mobile Preview Modal -->
-<div id="cardModal">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="card-shadow">
-      <!-- yahan cloned card aayega -->
-      <div id="modalCard"></div>
-    </div>
-    <div class="modal-actions">
-      <button class="outline" type="button" onclick="exportPNG()">Download PNG</button>
-      <button class="outline" type="button" onclick="exportPDF()">Download PDF</button>
-    </div>
-  </div>
-</div>
-
 <!-- Libraries for export (loaded from CDN) -->
- 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <script>
-
-  function getActiveCardEl(){
-  const modalOpen = document.getElementById('cardModal').classList.contains('open');
-  if(modalOpen){
-    const m = document.querySelector('#cardModal .id-card');
-    if(m) return m;
-  }
-  return document.getElementById('id-card');
-}
-
   // Utility: read file input to <img>
   function bindImageInput(inputEl, imgEl, onToggle){
     inputEl.addEventListener('change', () => {
@@ -491,7 +430,42 @@ bindImageInput(el('qrInput'),   qrImg);
     applyToCard();
   });
 
-  
+  // Export helpers
+  async function exportPNG(){
+    const card = el('id-card');
+    const prev = card.style.transform; const prevOrigin = card.style.transformOrigin;
+    card.style.transform = 'none'; card.style.transformOrigin = 'top left';
+    const canvas = await html2canvas(card, {backgroundColor: null, scale: 2});
+    card.style.transform = prev; card.style.transformOrigin = prevOrigin;
+
+    const data = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = data; a.download = (idNumber.value || 'id-card') + '.png';
+    a.click();
+  }
+
+  async function exportPDF(){
+    const card = el('id-card');
+    const prev = card.style.transform; const prevOrigin = card.style.transformOrigin;
+    card.style.transform = 'none'; card.style.transformOrigin = 'top left';
+    const canvas = await html2canvas(card, {backgroundColor: '#ffffff', scale: 2});
+    card.style.transform = prev; card.style.transformOrigin = prevOrigin;
+
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: [86, 54] });
+    const pageW = 86, pageH = 54;
+    const margin = 2;
+    const drawW = pageW - margin*2;
+    const drawH = drawW * (638/1011);
+    const y = (pageH - drawH)/2;
+    doc.addImage(imgData, 'PNG', margin, y, drawW, drawH);
+    doc.save((idNumber.value || 'id-card') + '.pdf');
+  }
+
+  el('downloadPNGBtn').addEventListener('click', exportPNG);
+  el('downloadPDFBtn').addEventListener('click', exportPDF);
+
   // Initialize
  
   // --- Org styling controls ek hi baar declare karo ---
@@ -601,45 +575,8 @@ window.addEventListener("DOMContentLoaded", ()=>{
   });
   applyToCard();
 });
-
-function openModal(){
-  const modal = document.getElementById('cardModal');
-  const modalCard = document.getElementById('modalCard');
-
-  // current card ko clone karke modal me dikhate hain
-  const original = document.getElementById('id-card');
-  const clone = original.cloneNode(true);      // deep clone
-  modalCard.innerHTML = '';                    // reset
-  modalCard.appendChild(clone);
-
-  modal.classList.add('open');
-}
-
-function closeModal(){
-  const modal = document.getElementById('cardModal');
-  modal.classList.remove('open');
-  document.getElementById('modalCard').innerHTML = '';
-}
-
-// backdrop click / Esc press se band ho
-document.getElementById('cardModal').addEventListener('click', (e)=>{
-  if(e.target.id === 'cardModal') closeModal();
-});
-document.addEventListener('keydown', (e)=>{
-  if(e.key === 'Escape') closeModal();
-});
-
-function getActiveCardEl(){
-  const modalOpen = document.getElementById('cardModal').classList.contains('open');
-  if(modalOpen){
-    const m = document.querySelector('#cardModal .id-card');
-    if(m) return m;
-  }
-  return document.getElementById('id-card');
-}
-
 async function exportPNG(){
-  const card = getActiveCardEl();
+  const card = document.getElementById('id-card');
   const prev = card.style.transform; 
   const prevOrigin = card.style.transformOrigin;
 
@@ -658,7 +595,7 @@ async function exportPNG(){
 }
 
 async function exportPDF(){
-  const card = getActiveCardEl();
+  const card = document.getElementById('id-card');
   const prev = card.style.transform; 
   const prevOrigin = card.style.transformOrigin;
 
@@ -677,6 +614,7 @@ async function exportPDF(){
   pdf.addImage(imgData, 'PNG', 0, 0, 1011, 638);
   pdf.save((idNumber.value || 'id-card') + '.pdf');
 }
+
 
 
 </script>
