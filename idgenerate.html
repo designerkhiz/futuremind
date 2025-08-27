@@ -107,44 +107,41 @@
   transform-origin: top center;
 }
 
-/* Tablet */
-@media (max-width: 1024px) {
-  .id-card {
-    transform: scale(.75);
-    transform-origin: top center;
-    width: 100%;
-    max-width: 720px;
-    height: auto;
-  }
-}
-
-/* Mobile preview fix */
-/* 📱 Mobile view: card upar, inputs niche */
+/* 📱 Mobile view: Card top + Inputs below, both full width */
 @media (max-width: 768px) {
   .app {
-    grid-template-columns: 1fr;   /* ek hi column */
+    display: flex;
+    flex-direction: column;   /* ek column */
+    gap: 20px;
+    padding: 12px;
   }
 
-  .panel {
-    order: 2;   /* inputs niche */
-  }
-
+  /* Live Preview pehle dikhe */
   .preview-wrap {
-    order: 1;   /* card upar */
-    margin-bottom: 20px;
+    order: -1;                /* card upar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .id-card {
-    width: 100% !important;
-    height: auto !important;
     transform: none !important;
+    width: 100% !important;   /* full screen fit */
+    height: auto !important;
     border-radius: 12px;
   }
 
+  /* Inputs panel bhi full width */
+  .panel {
+    width: 100%;
+  }
+
   .scale-note {
-    display: none;   /* optional: mobile pe chhup jaye */
+    display: none;            /* mobile pe note hide */
   }
 }
+
+
 
 
 </style>
