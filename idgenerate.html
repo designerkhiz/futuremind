@@ -108,34 +108,28 @@
 }
 
 /* Tablet */
-@media (max-width: 1024px) {
-  .id-card {
-    transform: scale(.75);
-    transform-origin: top center;
-    width: 100%;
-    max-width: 720px;
-    height: auto;
-  }
-}
-
-/* Mobile preview fix */
+/* ✅ Mobile preview fix */
 @media (max-width: 768px) {
-  #preview-frame {
-    width: 100% !important;
-    height: 500px !important;   /* adjust as needed */
-    border: none !important;
-    transform: none !important;
-  }
-
   .preview-wrap {
-    overflow-x: auto !important;   /* scroll allow */
-    min-height: 500px;
+    overflow-x: auto;      /* allow horizontal scroll */
+    overflow-y: hidden;
+    min-height: 400px;     /* ensure preview box is visible */
+    padding-bottom: 16px;
   }
 
   .id-card {
-    transform: none !important;
-    width: 100% !important;
-    height: auto !important;
+    transform: none !important;  /* remove scaling */
+    width: 1011px !important;    /* keep full card size */
+    height: 638px !important;
+    margin: 0 auto;
+  }
+
+  .card-shadow {
+    min-width: 1011px;          /* keep space for scroll */
+  }
+
+  .scale-note {
+    display: none;              /* hide "50% scale" note on mobile */
   }
 }
 
@@ -430,7 +424,42 @@ bindImageInput(el('qrInput'),   qrImg);
     applyToCard();
   });
 
-  
+  // Export helpers
+  async function exportPNG(){
+    const card = el('id-card');
+    const prev = card.style.transform; const prevOrigin = card.style.transformOrigin;
+    card.style.transform = 'none'; card.style.transformOrigin = 'top left';
+    const canvas = await html2canvas(card, {backgroundColor: null, scale: 2});
+    card.style.transform = prev; card.style.transformOrigin = prevOrigin;
+
+    const data = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = data; a.download = (idNumber.value || 'id-card') + '.png';
+    a.click();
+  }
+
+  async function exportPDF(){
+    const card = el('id-card');
+    const prev = card.style.transform; const prevOrigin = card.style.transformOrigin;
+    card.style.transform = 'none'; card.style.transformOrigin = 'top left';
+    const canvas = await html2canvas(card, {backgroundColor: '#ffffff', scale: 2});
+    card.style.transform = prev; card.style.transformOrigin = prevOrigin;
+
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: [86, 54] });
+    const pageW = 86, pageH = 54;
+    const margin = 2;
+    const drawW = pageW - margin*2;
+    const drawH = drawW * (638/1011);
+    const y = (pageH - drawH)/2;
+    doc.addImage(imgData, 'PNG', margin, y, drawW, drawH);
+    doc.save((idNumber.value || 'id-card') + '.pdf');
+  }
+
+  el('downloadPNGBtn').addEventListener('click', exportPNG);
+  el('downloadPDFBtn').addEventListener('click', exportPDF);
+
   // Initialize
  
   // --- Org styling controls ek hi baar declare karo ---
