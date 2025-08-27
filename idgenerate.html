@@ -109,18 +109,17 @@
 
 /* 📱 Mobile view: Card top + Inputs below, both full width */
 /* 📱 Mobile view card fix */
-@media (max-width: 900px) {
-  .id-card {
-    transform: none !important;   /* scale hata do */
-    width: 100% !important;       /* full width */
-    height: auto !important;      /* height auto */
+/* 📱 Mobile view fix */
+@media (max-width: 768px) {
+  .app {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 12px;
   }
-}
 
-
-  /* Live Preview pehle dikhe */
   .preview-wrap {
-    order: -1;                /* card upar */
+    order: -1; /* card upar */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -128,20 +127,21 @@
 
   .id-card {
     transform: none !important;
-    width: 100% !important;   /* full screen fit */
+    width: 100% !important;
     height: auto !important;
     border-radius: 12px;
+    margin: 0 auto;
   }
 
-  /* Inputs panel bhi full width */
   .panel {
     width: 100%;
   }
 
   .scale-note {
-    display: none;            /* mobile pe note hide */
+    display: none; /* mobile pe note hide */
   }
 }
+
 
 
 
@@ -625,5 +625,6 @@ async function exportPDF(){
 </script>
 </body>
 </html>
+
 
 
