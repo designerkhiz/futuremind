@@ -108,34 +108,43 @@
 }
 
 /* Tablet */
-/* ✅ Mobile Preview Auto Fit */
-@media (max-width: 768px) {
-  .preview-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 400px;
-    padding: 16px 0;
-    overflow: hidden; /* prevent unwanted scroll */
-  }
-
+@media (max-width: 1024px) {
   .id-card {
-    transform: scale(0.45);   /* shrink card to fit */
+    transform: scale(.75);
     transform-origin: top center;
-    width: 1011px;  /* actual size maintained */
-    height: 638px;
-  }
-
-  .card-shadow {
-    width: auto;
+    width: 100%;
+    max-width: 720px;
     height: auto;
-  }
-
-  .scale-note {
-    display: none;  /* hide note on mobile */
   }
 }
 
+/* Mobile preview fix */
+/* 📱 Mobile view: card upar, inputs niche */
+@media (max-width: 768px) {
+  .app {
+    grid-template-columns: 1fr;   /* ek hi column */
+  }
+
+  .panel {
+    order: 2;   /* inputs niche */
+  }
+
+  .preview-wrap {
+    order: 1;   /* card upar */
+    margin-bottom: 20px;
+  }
+
+  .id-card {
+    width: 100% !important;
+    height: auto !important;
+    transform: none !important;
+    border-radius: 12px;
+  }
+
+  .scale-note {
+    display: none;   /* optional: mobile pe chhup jaye */
+  }
+}
 
 
 </style>
