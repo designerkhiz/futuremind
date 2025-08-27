@@ -108,13 +108,15 @@
 }
 
 /* 📱 Mobile view: Card top + Inputs below, both full width */
+/* 📱 Mobile view card fix */
 @media (max-width: 768px) {
-  .app {
-    display: flex;
-    flex-direction: column;   /* ek column */
-    gap: 20px;
-    padding: 12px;
+  .id-card {
+    transform: none !important;   /* scale hata do */
+    width: 100% !important;       /* full width */
+    height: auto !important;      /* height auto */
   }
+}
+
 
   /* Live Preview pehle dikhe */
   .preview-wrap {
@@ -623,3 +625,4 @@ async function exportPDF(){
 </script>
 </body>
 </html>
+
