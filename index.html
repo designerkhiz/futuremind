@@ -84,8 +84,7 @@
 
 
 
-    footer{padding:30px 6%;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.03)}
-
+    
     /* RESPONSIVE */
     @media(max-width:920px){.hero{flex-direction:column;padding-top:100px}.hero-right{width:100%}.contact-wrap{grid-template-columns:1fr}}
     @media(max-width:560px){nav{padding:12px 4%}.hero h1{fnt-size:1.8rem}.navlinks{display:none}}
@@ -200,9 +199,26 @@
 </section>
 
       
-  <footer>
-    © 2025 Khizar • Built with ❤️ • <a href="#" style="color:var(--muted);text-decoration:none">Terms</a>
-  </footer>
+  <footer style="margin-top:60px; padding:20px; text-align:center; 
+               background:var(--glass); border-top:1px solid rgba(255,255,255,0.08); 
+               border-radius:14px 14px 0 0; 
+               box-shadow:0 -6px 24px rgba(0,0,0,0.15); 
+               backdrop-filter:blur(10px); 
+               font-size:0.95rem; color:var(--muted);">
+  
+  <p style="margin:0; line-height:1.6;">
+    © 2025 <strong style="color:var(--text)">Khizar</strong> • Built with 
+    <span style="color:#ff4d6d; font-weight:bold;">❤️</span> & 
+    <span style="color:#4dabf7; font-weight:bold;">Code</span>
+  </p>
+  
+  <p style="margin-top:8px; font-size:0.85rem;">
+    <a href="#" style="color:var(--accent); text-decoration:none; margin:0 10px;">Terms</a> | 
+    <a href="#" style="color:var(--accent); text-decoration:none; margin:0 10px;">Privacy</a> | 
+    <a href="#contact" style="color:var(--accent); text-decoration:none; margin:0 10px;">Contact</a>
+  </p>
+</footer>
+
 
   <script>
     // ---------- Custom Cursor ----------
