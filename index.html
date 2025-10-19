@@ -136,35 +136,332 @@
   </section>
 
   <!-- PROJECTS -->
-  <section id="projects">
-    <div class="section-title">Selected Projects</div>
-    <div class="projects-grid" style="margin-top:18px">
-      <article class="project" data-tilt>
-        <div class="thumb">Project Screenshot</div>
-        <h4>Racing Theme Dashboard</h4>
-        <p class="meta"><span class="tags"><span class="tag">HTML</span><span class="tag">Tailwind</span></span><a href="#" style="color:var(--muted);text-decoration:none"> Live →</a></p>
-      </article>
+<!-- PROJECTS -->
+<section id="projects" style="padding:60px 0;background:var(--background);">
+  <div class="section-title" style="text-align:center;margin-bottom:32px;font-size:28px;font-weight:700;">
+    Selected Projects
+  </div>
 
-      <article class="project" data-tilt>
-        <div class="thumb">ID Card Generator</div>
-        <h4>Interactive ID Generator</h4>
-        <p class="meta"><span class="tags"><span class="tag">JS</span><span class="tag">Canvas</span></span><a href="#" style="color:var(--muted);text-decoration:none"> Live →</a></p>
-      </article>
+  <!-- 🟦 FIRST ROW (1–5 in one line with horizontal scroll) -->
+  <div class="projects-row" style="
+      display:flex;
+      overflow-x:auto;
+      gap:24px;
+      padding:0 20px 10px;
+      scroll-behavior:smooth;
+      scrollbar-width:none;
+  ">
+    
 
-      <article class="project" data-tilt>
-        <div class="thumb">Mobile Shop Dashboard</div>
-        <h4>Shop Management UI</h4>
-        <p class="meta"><span class="tags"><span class="tag">PHP</span><span class="tag">MySQL</span></span><a href="#" style="color:var(--muted);text-decoration:none"> Repo →</a></p>
-      </article>
+    <!-- 1 -->
+    <article class="project" data-tilt onclick="openImage('one.png')">
+      <div class="thumb"><img src="one.png" alt="Project 1"></div>
+      <div class="content">
+        <h4>Home Page</h4>
+        <p class="meta"><span class="tag">HTML</span><span class="tag">Tailwind</span><a href="#">Live →</a></p>
+      </div>
+    </article>
 
-      <article class="project" data-tilt>
-        <div class="thumb">Portfolio Redesign</div>
-        <h4>Personal Portfolio</h4>
-        <p class="meta"><span class="tags"><span class="tag">HTML</span><span class="tag">CSS</span></span><a href="#" style="color:var(--muted);text-decoration:none"> Live →</a></p>
-      </article>
+    <!-- 2 -->
+    <article class="project" data-tilt onclick="openImage('two.png')">
+      <div class="thumb"><img src="two.png" alt="Project 2"></div>
+      <div class="content">
+        <h4>Registration Panel</h4>
+        <p class="meta"><span class="tag">JS</span><span class="tag">Canvas</span><a href="#">Live →</a></p>
+      </div>
+    </article>
 
+    <!-- 3 -->
+    <article class="project" data-tilt onclick="openImage('three.png')">
+      <div class="thumb"><img src="three.png" alt="Project 3"></div>
+      <div class="content">
+        <h4>Login Panel</h4>
+        <p class="meta"><span class="tag">PHP</span><span class="tag">MySQL</span><a href="#">Repo →</a></p>
+      </div>
+    </article>
+
+    <!-- 4 -->
+    <article class="project" data-tilt onclick="openImage('four.png')">
+      <div class="thumb"><img src="four.png" alt="Project 4"></div>
+      <div class="content">
+        <h4>Dashboard</h4>
+        <p class="meta"><span class="tag">HTML</span><span class="tag">CSS</span><a href="#">Live →</a></p>
+      </div>
+    </article>
+
+    <!-- 5 -->
+    <article class="project" data-tilt onclick="openImage('five.png')">
+      <div class="thumb"><img src="five.png" alt="Project 5"></div>
+      <div class="content">
+        <h4>Dash Home Section</h4>
+        <p class="meta"><span class="tag">React</span><span class="tag">API</span><a href="#">Demo →</a></p>
+      </div>
+    </article>
+  </div>
+
+  <!-- 🟩 SECOND ROW (6–9 normal grid layout) -->
+  <div class="projects-grid" style="
+      display:flex;
+      justify-content:center;
+      align-items:stretch;
+      flex-wrap:wrap;
+      gap:24px;
+      padding:0 20px;
+      margin-top:40px;
+  ">
+    <!-- 6 -->
+    <article class="project" data-tilt onclick="openImage('six.png')">
+      <div class="thumb"><img src="six.png" alt="Project 6"></div>
+      <div class="content">
+        <h4>Attendance Manager</h4>
+        <p class="meta"><span class="tag">PHP</span><span class="tag">Tailwind</span><a href="#">Demo →</a></p>
+      </div>
+    </article>
+
+    <!-- 7 -->
+    <article class="project" data-tilt onclick="openImage('seven.png')">
+      <div class="thumb"><img src="seven.png" alt="Project 7"></div>
+      <div class="content">
+        <h4>Sales Tracker</h4>
+        <p class="meta"><span class="tag">JS</span><span class="tag">Chart.js</span><a href="#">Live →</a></p>
+      </div>
+    </article>
+
+    <!-- 8 -->
+    <article class="project" data-tilt onclick="openImage('eight.png')">
+      <div class="thumb"><img src="eight.png" alt="Project 8"></div>
+      <div class="content">
+        <h4>Worker Management</h4>
+        <p class="meta"><span class="tag">MySQL</span><span class="tag">PHP</span><a href="#">Repo →</a></p>
+      </div>
+    </article>
+
+    <!-- 9 -->
+    <article class="project" data-tilt onclick="openImage('nine.png')">
+      <div class="thumb"><img src="nine.png" alt="Project 9"></div>
+      <div class="content">
+        <h4>Animated Login Page</h4>
+        <p class="meta"><span class="tag">HTML</span><span class="tag">CSS</span><a href="#">Demo →</a></p>
+      </div>
+    </article>
+  </div>
+</section>
+
+   <!-- 🟦 NEW ROW: Projects 10 & 11 -->
+<div class="projects-grid" style="
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 0 20px;
+  margin-top: 40px;
+">
+
+  <!-- 10 -->
+  <article class="project" data-tilt onclick="openImage('tenth.png')">
+    <div class="thumb"><img src="tenth.png" alt="Tenth Project"></div>
+    <div class="content">
+      <h4>Portfolio Website</h4>
+      <p class="meta">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <a href="#">Live →</a>
+      </p>
     </div>
-  </section>
+  </article>
+
+  <!-- 11 -->
+  <article class="project" data-tilt onclick="openImage('eleven.png')">
+    <div class="thumb"><img src="eleven.png" alt="Eleventh Project"></div>
+    <div class="content">
+      <h4>E-commerce Shop</h4>
+      <p class="meta">
+        <span class="tag">React</span>
+        <span class="tag">API</span>
+        <a href="#">Demo →</a>
+      </p>
+    </div>
+  </article>
+
+</div>
+
+</div>
+
+    
+
+  </div> <!-- ✅ this closes the grid -->
+</section>
+
+<!-- IMAGE POPUP -->
+<div id="imageModal" style="
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  backdrop-filter: blur(5px);
+">
+  <img id="fullImage" src="" alt="Project Image" style="
+    max-width:90%;
+    max-height:90%;
+    border-radius:10px;
+    box-shadow:0 0 30px rgba(255,255,255,0.3);
+    object-fit:contain;
+  ">
+  <span onclick="closeImage()" style="
+    position:absolute;
+    top:20px;
+    right:35px;
+    color:white;
+    font-size:36px;
+    cursor:pointer;
+    font-weight:bold;
+  ">&times;</span>
+</div>
+
+<!-- STYLES -->
+<style>
+  .projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 0 20px;
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  background: var(--card,#1e1e1e);
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.04);
+}
+
+.project .thumb {
+  height: 180px; /* same height for all */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#111;
+}
+
+.project .thumb img {
+  max-height:100%; /* fit inside thumb */
+  width: auto;
+  object-fit:contain;
+}
+
+  .content {
+    padding:14px;
+  }
+  .content h4 {
+    margin:0;
+    font-size:18px;
+    color:var(--text,#fff);
+  }
+  .meta {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:6px;
+    font-size:14px;
+  }
+  .tag {
+    background:var(--accent,#2563eb);
+    color:#fff;
+    padding:3px 8px;
+    border-radius:6px;
+    margin-right:5px;
+    font-size:12px;
+  }
+  .meta a {
+    color:var(--muted,#9ca3af);
+    text-decoration:none;
+  }
+  .meta a:hover {
+    color:var(--accent,#2563eb);
+  }
+  #imageModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.92) !important; /* force black backdrop */
+  backdrop-filter: blur(8px);
+  z-index: 99999 !important; /* make sure it's above everything */
+}
+
+#imageModal img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(255,255,255,0.3);
+}
+
+#imageModal span {
+  color: #fff;
+  font-size: 36px;
+  position: absolute;
+  top: 25px;
+  right: 40px;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 100000;
+}
+#imageModal {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+#imageModal[style*="display: flex"] {
+  opacity: 1;
+}
+
+</style>
+
+<!-- JS -->
+<script>
+document.querySelectorAll("[data-tilt]").forEach(card => {
+  card.addEventListener("mousemove", e => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const rotateX = ((y / rect.height) - 0.5) * 12;
+    const rotateY = ((x / rect.width) - 0.5) * -12;
+    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+  });
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+  });
+});
+
+function openImage(src) {
+  const modal = document.getElementById("imageModal");
+  const img = document.getElementById("fullImage");
+  img.src = src;
+  modal.style.display = "flex";
+}
+
+function closeImage() {
+  document.getElementById("imageModal").style.display = "none";
+}
+
+document.getElementById("imageModal").addEventListener("click", (e) => {
+  if (e.target.id === "imageModal") closeImage();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeImage();
+});
+</script>
+
 
 
 
